@@ -63,13 +63,15 @@ function ParentComponent({ ToDo, setToDo }) {
     };
     const timeLeft = (index) => {
         const today = new Date();
-        if (!ToDo[index].date) return ("");
-        if (ToDo[index].isChecked) return ("");
-        if (new Date(ToDo[index].date) < today) return ("");
         const date = new Date(ToDo[index].date);
         const timeLeft = date - today;
-        const daysLeft = Math.ceil(timeLeft / (1000 * 60 * 60 * 24));
-        return <p className="timeLeft">J-{daysLeft} avant la date butoir</p>;
+        const daysLeft = Math.abs(Math.ceil(timeLeft / (1000 * 60 * 60 * 24)));
+        if (!ToDo[index].date) return ("");
+        if (ToDo[index].isChecked) return ("");
+        if (new Date(ToDo[index].date) < today) return(<p className="timeLeft">{daysLeft} jours en retard !</p>);
+
+
+        return <p className="timeLeft">{daysLeft} jours avant la date butoir</p>;
     }
     return (
         <div className="divParentComponent">
