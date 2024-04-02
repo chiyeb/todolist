@@ -14,11 +14,10 @@ function ToDoItem({ text, date, isChecked,onChangeDone ,onChange, onShowCalendar
     if (date) {
         formattedDate = new Date(date).toLocaleDateString('fr-FR');
     }
-
     return (
         <div className="ToDocontainer">
             {check(isChecked, text)}
-            <p className="ToDoDate">{formattedDate}</p>
+            <p className="ToDoDate">{date}</p>
             <button className="doneBtn" onClick={onChangeDone}> {isChecked? <RxCross1/> : <MdDone/>} </button>
             <button className="calendarBtn" onClick={onShowCalendar}>
                 {calendarVisible ? <FaCalendarTimes /> : <FaCalendarPlus />}
@@ -73,6 +72,9 @@ function ParentComponent({ ToDo, setToDo }) {
 
         return <p className="timeLeft">{daysLeft} jours avant la date butoir</p>;
     }
+    {ToDo.map((item, index) => (
+        console.log(item.date)
+    ))}
     return (
         <div className="divParentComponent">
             {ToDo.map((item, index) => (
